@@ -87,7 +87,35 @@ select staffNo,fName,lName,salary from staff where salary>20000 and salary<30000
 #10. List all cities where there is both a branch office and at least one property for rent.
   (select city from Branch)intersect(select city from PropertyForRent);
 #11. List the names and comments of all clients who have viewed a Property For Rent.
-  
+  select fname,lname,Viewing.comment from Client inner join Viewing on Client.clientNo = Viewing.clientNo;
+#13. List complete details of all staff who work at branch in Glasgow.
+  select * from Staff where branchNo = (select branchNo from Branch where city = "Glasgow");
+#14.Find all owners with the string ‘Glasgow’ in their address.
+ select * from PrivateOwner where address like "%Glasgow%";
+#15.how many properties cost more than $350 per month to rent.
+  select count(*) from PropertyForRent where rent>350; 
+#16.Find the minimum, maximum , and average Staff salary .
+  select min(salary) as MinSalary , max(salary) as MaxSalary, avg(salary) as AvgSalary from Satff;
+#17.Find the number of staff working in each branch and the sum of their salaries.
+  select branchNo , count(*) satffNo, sum(salary), as SumSalary from Staff group by branchNo;
+#18.List the details of all viewing on property PG4 where a comment has not been supplied.
+  select * from Viewing where propertyNo= "PG4" and comment =" ";
+#19. produce a list of salaries for all staff , arranged in descending order of salary .
+   select staffNo, fname, lname, salary from Staff order by salary desc;
+#20.produce a list of properties arranged in order of property type.
+  select * from PropertyForRent order by type;
+#21.How many different properties were viewed in May 2004?
+  select count(*) from Viewing where viewDate where viewDate like "%2004-05%";
+#22.Find the total number of Managers and the sum of their salaries.
+   select count (*) Manager, sum(salary) from Staff where position = "Manager";
+#23.For each branch office with more than 1 member of staff, find the number of staff working in each branch and the sum of their salaries.
+   select branchNo,count(staffNo),sum(salary) as SumSalary from Staff group by branchNo having count (staffNo)>1;
+#24.List the staff who work in the branch at ‘163 Main St’.
+  select fanme,lname from Staff where branchNo = (select branchNo from Branch where street = "163 Main St");
+#25.List all staff whose salary is greater than the average salary, and show by how much their salary is greater than the average.
+  select fname,lname,salary =(select avg(salary) from Staff) as difference from Staff where salay > (select avg(salary) from Staff);
+
+
 
   
   
