@@ -1,11 +1,11 @@
-Branch
+#Branch
 CREATE TABLE Branch (branchNo varchar(5),street varchar(20),city text,postcode varchar(20),primary key (branchNo));
 desc Branch;
 INSERT INTO BRANCH VALUES ('B005','22 Deer Rd','London','SW1 4EH'),('B007','16 Argyll St','Aberdeen','AB2 3SU'),('B003','163 Main St','Glassg
 ow','G11 9QX'),('B004','32 Manse Rd','Bristol','BS99 1NZ'),('B002','56 Clover Dr','London','NW10 6EU');
 select * from BRANCH;
 
-Staff
+#Staff
 CREATE TABLE Staff (staffNo VARCHAR(5),fName VARCHAR(20),lName VARCHAR(20),position VARCHAR(20),sex CHAR(1),DOB DATE,salary INT,branchNo VARCHAR(5),primary key (staffNo));
 desc Staff;
 INSERT INTO Staff VALUES ('SL21','John','White','Manager','M','1945-10-01',30000,'B005'),
@@ -16,7 +16,7 @@ INSERT INTO Staff VALUES ('SL21','John','White','Manager','M','1945-10-01',30000
 ('SL41','Julie','Lee','Assistant','F','1965-06-13',9000,'B005');
 select * from Staff;
 
-Registration
+#Registration
 CREATE TABLE Registration (clientNo VARCHAR(5),branchNo VARCHAR(5),staffNo VARCHAR(5),dateJoined DATE,primary key(clientNo,branchNo));
 desc Registration;
 INSERT INTO Registration VALUES ('CR76','B005','SL41','2004-01-02'),
@@ -25,7 +25,7 @@ INSERT INTO Registration VALUES ('CR76','B005','SL41','2004-01-02'),
 ('CR62','B007','SA9','2003-03-07');
 select * from Registration;
 
-PropertyForRent
+#PropertyForRent
 CREATE TABLE PropertyForRent (propertyNo VARCHAR(5),street VARCHAR(50),city VARCHAR(20),postcode VARCHAR(10),type VARCHAR(10),rooms INT,rent
 DECIMAL(6,2),ownerNo VARCHAR(5),staffNo VARCHAR(5),branchNo VARCHAR(5),primary key (propertyNo));
 desc PropertyForRent;
@@ -37,7 +37,7 @@ INSERT INTO PropertyForRent VALUES ('PA14','16 Holhead','Aberdeen','AB7 5SU','Ho
 ('PG16','5 Novar Dr','Glasgow','G12 9AX','Flat',4,450,'CO93','SG14','B003');
 select * from PropertyForRent ;
 
-Client
+#Client
 CREATE TABLE Client (clientNo VARCHAR(5),fName VARCHAR(20),lName VARCHAR(20),telNo VARCHAR(15),prefType VARCHAR(10),maxRent DECIMAL(6,2),prim
 ary key (clientNo));
 desc Client;
@@ -47,7 +47,7 @@ INSERT INTO Client VALUES ('CR76','John','Kay','0207-774-5632','Flat',425),
 ('CR62','Mary','Tregear','01224-196720','Flat',600);
 select * from Client ;
 
-PrivateOwner
+#PrivateOwner
 CREATE TABLE PrivateOwner (ownerNo VARCHAR(5),fName VARCHAR(20),lName VARCHAR(20),address VARCHAR(50),telNo VARCHAR(15),primary key(ownerNo));
 desc PrivateOwner;
 INSERT INTO PrivateOwner VALUES ('CO46','Joe','Keogh','2 Fergus Dr,Aberdeen AB2 7SX','01224-861212'),
@@ -56,7 +56,7 @@ INSERT INTO PrivateOwner VALUES ('CO46','Joe','Keogh','2 Fergus Dr,Aberdeen AB2 
 ('CO93','Tony','Shaw','12 Park Pl,Glasgow G4 0QR','0141-225-7025');
 select * from PrivateOwner;
 
-Viweing
+#Viweing
 CREATE TABLE Viewing (clientNo VARCHAR(5),propertyNo VARCHAR(5),viewDate DATE,comment VARCHAR(50),primary key (clientNo,propertyNo));
 desc Viewing;
 INSERT INTO Viewing VALUES ('CR56','PA14','2004-05-24','too small'),
@@ -67,6 +67,31 @@ INSERT INTO Viewing VALUES ('CR56','PA14','2004-05-24','too small'),
 select * from Viewing;
 
 #1.List full details of all staff.
+  select * from Staff;
+#2.Produce a list of salaries for all staff, showing only the staff number ,the first and last names, and the salary details.
+  select staffNo,fName,lName,salary from staff;
+#3.Produce a list of monthly salaries for all staff, showing the staff number ,the first and last names, and the salary details.
+  select salary/12 as msalary,staffNo,fName,lName,salary from staff;
+#4.List all staff with a salary greater than $10,000.
+select staffNo,fName,lName,salary from staff where salary>10000;
+#5.List all staff with a salary between $20,000 and $30,000.
+select staffNo,fName,lName,salary from staff where salary>20000 and salary<30000;
+#6.Produce a list of salaries for all staff, showing only the staffNo,fName,lName ,and salary details.
+  select staffNo,fname,lname,salary from Staff;
+#7.List all managers and supervisors.
+
+#8.List all cities where  there is either a branch office or a property for Rent .
+  (select city from Branch) union(select city from PropertyForRent);
+#9.List all cities where  there is a branch office but no properties for rent .
+(select city from Branch)exception(select city from PropertyForRent);
+#10. List all cities where there is both a branch office and at least one property for rent.
+  (select city from Branch)intersect(select city from PropertyForRent);
+#11. List the names and comments of all clients who have viewed a Property For Rent.
+  
+
+  
+  
+  
 
 
 
