@@ -114,7 +114,17 @@ select staffNo,fName,lName,salary from staff where salary>20000 and salary<30000
   select fanme,lname from Staff where branchNo = (select branchNo from Branch where street = "163 Main St");
 #25.List all staff whose salary is greater than the average salary, and show by how much their salary is greater than the average.
   select fname,lname,salary =(select avg(salary) from Staff) as difference from Staff where salay > (select avg(salary) from Staff);
+#26.List the properties that are handled by staff who work in the branch at 163 Main St.
+  select  select * from PropertyForRent where staffNo in (select staffNo from Staff where branchNo =(select branchNo from BRANCH where street = "163 Main St"));
+#27.Find all staff whose salary is larger than the salary of at least one member of staff at branch B003.
 
+#28.Find all staff whose salary is larger than the salary of every member of staff at branch B003.
+
+
+#29.List the names of all clients who have viewed a property along with any comment supplied.
+
+#30.  For each branch office , list the numbers and names of staff who manage properties and properties that they manage.
+  
 
 
   
